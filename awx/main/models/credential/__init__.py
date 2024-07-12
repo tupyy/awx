@@ -1261,6 +1261,35 @@ ManagedCredentialType(
 )
 
 
+ManagedCredentialType(
+    namespace='snow',
+    kind='cloud',
+    name=gettext_noop('Service Now'),
+    managed=True,
+    inputs={
+        'fields': [
+            {'id': 'host', 'label': gettext_noop('ServiceNow Host URL'), 'type': 'string'},
+            {
+                'id': 'username',
+                'label': gettext_noop('Username'),
+                'type': 'string',
+                'secret': True,
+            },
+            {
+                'id': 'password',
+                'label': gettext_noop('Password'),
+                'type': 'string',
+                'secret': True,
+            },
+        ],
+        'required': ['sn_host', 'sn_username', 'sn_password'],
+    },
+    injectors={
+        'env': {'SN_HOST': '{{host}}', 'SN_USER': '{{username}}', 'SN_PASSWORD': '{{password}}'},
+    },
+)
+
+
 class CredentialInputSource(PrimordialModel):
     class Meta:
         app_label = 'main'
